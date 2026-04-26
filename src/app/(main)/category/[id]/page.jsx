@@ -1,4 +1,5 @@
 import LeftSideBar from "@/components/homepage/LeftSideBar";
+import NewsCard from "@/components/homepage/NewsCard";
 import RightSideBar from "@/components/homepage/RightSideBar";
 import { getAllCategories, getAllNewsByCategory } from "@/lib/data";
 
@@ -24,16 +25,13 @@ const CategoryDetailsPage = async ({ params }) => {
             {/* Dragon News Home */}
             <div className="col-span-2 space-y-4">
                 <h1 className='text-xl font-semibold '>Dragon news by categories</h1>
-                <ul className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4">
                     {
                         newsByCategory.map(news =>
-                            <li key={news._id}
-                                className="bg-gray-300  p-4 rounded-2xl">
-                                {news.title}
-                            </li>
+                            <NewsCard key={news._id} news={news}></NewsCard>
                         )
                     }
-                </ul>
+                </div>
 
             </div>
 
