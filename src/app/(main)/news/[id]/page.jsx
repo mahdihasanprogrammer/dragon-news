@@ -5,6 +5,17 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { FaRegBookmark, FaRegEye, FaStar } from 'react-icons/fa';
 import { MdOutlineShare } from 'react-icons/md';
 
+export async function generateMetadata({params}) {
+    const {id} = await params;
+    const news =await getNewsDetails(id);
+
+    return{
+        title: news.title,
+        description:news.details
+    }
+
+}
+
 const NewsDetailsPage = async ({ params }) => {
     const { id } = await params;
     const news = await getNewsDetails(id);
