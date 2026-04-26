@@ -1,4 +1,4 @@
-import React from 'react';
+
 import NavLink from './NavLink';
 import Image from 'next/image';
 import user_avatar from '@/assets/user.png'
@@ -6,14 +6,20 @@ import user_avatar from '@/assets/user.png'
 
 const Navbar = () => {
   return (
-    <div className='container mx-auto px-5 md:px-8 lg:px-12 py-5 flex justify-center md:justify-between items-center gap-4  flex-wrap md:text-lg font-medium'>
+    <div className='container mx-auto px-5 md:px-8 lg:px-12 py-5 flex justify-center md:justify-between items-center gap-4  flex-wrap'>
 
       <div></div>
 
-      <ul className='flex justify-between items-center gap-4 '>
-        <NavLink href='/'>Home</NavLink>
-        <NavLink href="/about">About</NavLink>
-        <NavLink href='/career'>Career</NavLink>
+      <ul className='flex justify-between items-center gap-4 text-gray-500 font-medium'>
+       <li>
+         <NavLink href={'/'}>Home</NavLink>
+       </li>
+       <li>
+         <NavLink href={'/about'}>About</NavLink>
+       </li>
+      <li>
+          <NavLink href={'/career'}>Career</NavLink>
+      </li>
       </ul>
 
       <div className='flex items-center justify-between gap-2'>

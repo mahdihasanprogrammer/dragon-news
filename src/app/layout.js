@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
       className={`${poppins.className}`}
       lang="en"
       data-theme='light'
+      suppressHydrationWarning
     >
 
       <body className="min-h-full flex flex-col">

@@ -4,14 +4,16 @@ import { usePathname } from "next/navigation";
 
 
 const NavLink = ({href, children}) => {
-    const pathName= usePathname();
-    const isActive = pathName == href;
-    console.log(isActive)
+    const pathname= usePathname();
+    const active = pathname === href;
+    
+  //  console.log(pathname, active, href)
  
     return (
-      <li className={`${isActive ? 'text-pink-500' : 'text-gray-500'}`}>
-        <Link href={href}>{children}</Link>
-      </li>
+  
+      <Link href={href}
+      className={`text-lg ${active ? 'text-purple-500 border-b-2  border-purple-500' : ""}`}
+      >{children}</Link>
     );
 };
 
