@@ -22,9 +22,9 @@ const Navbar = () => {
       </li>
       </ul>
 
-      <div className='flex items-center justify-between gap-2'>
-        <Image src={user_avatar} alt='user logo' className='size-8 md:size-10' />
-        <button className='btn btn-neutral btn-sm md:btn-md w-20 md:w-24'>login</button>
+      <div className='flex items-center justify-between gap-4'>
+        <Image src={user_avatar} alt='user logo' className='size-8' />
+        <button className='btn bg-purple-500 text-base-100 box-content  w-20 text-base'>Login</button>
       </div>
 
     </div>
