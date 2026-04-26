@@ -38,14 +38,10 @@ const NewsCard = ({ news }) => {
                 </figure>
                 <div className='border-b border-gray-300'>
                     <p className='line-clamp-3'>{news.details}</p>
-                    <div className='flex justify-between items-center gap-4 flex-wrap'>
-                        <Link href={`/news/${news._id}`}>
+                    <Link href={`/news/${news._id}`}>
                         <button className='text-orange-400 text-base 
-                        font-semibold my-2' >See details</button></Link>
-                      
-                        <button className=' text-base 
-                        font-semibold my-2' >Read More</button>
-                    </div>
+                        font-semibold my-2 cursor-pointer' >See details</button></Link>
+
                 </div>
 
                 <div className='flex justify-between items-center gap-2 font-medium text-gray-600'>
