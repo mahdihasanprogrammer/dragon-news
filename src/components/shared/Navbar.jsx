@@ -27,7 +27,7 @@ const Navbar = () => {
         <Image src={user_avatar} alt='user logo' className='size-8' />
 
         <Link href={'/login'}>
-          <button className='btn bg-purple-500 text-base-100 box-content  w-20 text-base'>Login</button>
+          <button className='btn btn-sm md:btn-md bg-purple-500 text-base-100 box-content  w-20 text-base'>Login</button>
         </Link>
 
       </div>

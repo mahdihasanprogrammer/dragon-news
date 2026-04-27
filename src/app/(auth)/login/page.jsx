@@ -4,14 +4,16 @@ import { useForm } from "react-hook-form";
 
 
 const LoginPage = () => {
-const {register} = useForm();
-console.log('register', register)
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        console.log(email, password)
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    console.log('use form', useForm());
+    console.log('register', register('password'), errors)
+
+
+    const handleLogin = (data) => {
+        console.log(data)
     }
+
 
 
     return (
@@ -20,16 +22,36 @@ console.log('register', register)
             <div className="bg-base-100 p-5 md:p-6 space-y-4 md:space-y-6 rounded-sm w-full sm:w-auto">
                 <h2 className="text-2xl md:text-3xl font-semibold text-center">Login your account</h2>
 
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSubmit(handleLogin)}>
                     <fieldset className="fieldset  border-base-300 p-4 md:p-6 rounded-box sm:w-sm border">
                         <label className="label font-semibold text-base">Email</label>
-                        <input type="email" className="input w-full bg-zinc-100" placeholder="Email" name="email" />
+                        <input  type="email" className="input w-full bg-zinc-100" placeholder="Email"
+                            {...register('email', {
+                                required: 'This field is required',
+                                pattern: {
+                                    value: /\S+@\S+\.\S+/,
+                                    message: "Invalid email format"
+                                }
+                            })} />
+                        {errors.email &&
+                            <p className="text-red-500">{errors.email.message}</p>}
 
                         <label className="label font-semibold text-base">Password</label>
-                        <input type="password" className="input w-full bg-zinc-100" placeholder="Password" name="password" />
+                        <input
+                            type="password"
+                            className="input w-full bg-zinc-100" placeholder="Password"
+                            {...register('password', {
+                                required: 'This field is required',
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be at least 6 characters or longer"
+                                }
+                            })} />
+                        {errors.password &&
+                            <p className="text-red-500">{errors.password.message}</p>}
 
                         <button className="btn btn-neutral my-4">Login</button>
-                        <p className="text-center text-sm">Don't Have An Account? <Link className="text-red-500" href={'/register'}>Register</Link></p>
+                        <p className="text-center text-sm">Dont Have An Account? <Link className="text-red-500" href={'/register'}>Register</Link></p>
                     </fieldset>
                 </form>
 
