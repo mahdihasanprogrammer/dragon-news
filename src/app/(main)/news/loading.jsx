@@ -2,7 +2,7 @@ import {  GridLoader } from 'react-spinners';
 
 const LoadingNewsPage = () => {
     return (
-        <div className='flex items-center justify-center h-[90vh]'>
+        <div className='flex items-center justify-center h-[50vh]'>
           <GridLoader size={20} color='#D040FB'/>
         </div>
     );

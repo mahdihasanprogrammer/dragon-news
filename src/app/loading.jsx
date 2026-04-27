@@ -2,7 +2,7 @@
 
 const LoadingPage = () => {
     return (
-        <div className='flex items-center justify-center h-[90vh]'>
+        <div className='flex items-center justify-center h-[50vh]'>
             <span class="loading loading-spinner text-secondary"></span>
         </div>
     );

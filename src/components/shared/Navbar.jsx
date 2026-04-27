@@ -2,6 +2,7 @@
 import NavLink from './NavLink';
 import Image from 'next/image';
 import user_avatar from '@/assets/user.png'
+import Link from 'next/link';
 
 
 const Navbar = () => {
@@ -11,20 +12,24 @@ const Navbar = () => {
       <div></div>
 
       <ul className='flex justify-between items-center gap-4 text-gray-500 font-medium'>
-       <li>
-         <NavLink href={'/'}>Home</NavLink>
-       </li>
-       <li>
-         <NavLink href={'/about'}>About</NavLink>
-       </li>
-      <li>
+        <li>
+          <NavLink href={'/'}>Home</NavLink>
+        </li>
+        <li>
+          <NavLink href={'/about'}>About</NavLink>
+        </li>
+        <li>
           <NavLink href={'/career'}>Career</NavLink>
-      </li>
+        </li>
       </ul>
 
       <div className='flex items-center justify-between gap-4'>
         <Image src={user_avatar} alt='user logo' className='size-8' />
-        <button className='btn bg-purple-500 text-base-100 box-content  w-20 text-base'>Login</button>
+
+        <Link href={'/login'}>
+          <button className='btn bg-purple-500 text-base-100 box-content  w-20 text-base'>Login</button>
+        </Link>
+
       </div>
 
     </div>
