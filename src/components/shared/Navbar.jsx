@@ -4,11 +4,31 @@ import Image from 'next/image';
 import user_avatar from '@/assets/user.png'
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+
+
 
 
 const Navbar = () => {
-  const {data:session} = authClient.useSession()
-  console.log(session?.user)
+
+  const { data: session, isPending } = authClient.useSession()
+  const user = session?.user;
+  const router = useRouter();
+
+
+
+  const handleLogOut =async ()=>{
+    await authClient.signOut({
+      fetchOptions:{
+        onSuccess: ()=>{
+          router.push('/login')
+        }
+      }
+    })
+  }
+  console.log('this is auth',authClient.useSession(), )
+
+
 
   return (
     <div className='container mx-auto px-5 md:px-8 lg:px-12 py-5 flex justify-center md:justify-between items-center gap-4  flex-wrap'>
@@ -27,15 +47,24 @@ const Navbar = () => {
         </li>
       </ul>
 
-      <div className='flex items-center justify-between gap-4'>
-        <p>{session?.user?.name}</p>
-        <Image src={ session?.user.image? session?.user.image: user_avatar} width={50} height={50} alt='user logo' className='size-8 rounded-full' />
+      {isPending ? <p>loading...</p>
+      : user ? 
+        <div className='flex items-center justify-between gap-4'>
+          <p>{user?.name}</p>
+          <Image src={user ? user.image : user_avatar} width={40} height={40} alt='user logo' className=' rounded-full' />
+
+
+          
+            <button onClick={handleLogOut}
+             className='btn  bg-purple-600 text-base-100'>Logout</button>
+         
+        </div> :
+
 
         <Link href={'/login'}>
-          <button className='btn  bg-purple-500 text-base-100   text-base'>Login</button>
+          <button className='btn  bg-purple-600 text-base-100'>Login</button>
         </Link>
-
-      </div>
+      }
 
     </div>
   );

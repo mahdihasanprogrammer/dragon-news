@@ -1,21 +1,21 @@
 "use client"
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const RegisterPage = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    // console.log('use form', useForm());
-    // console.log('register', register('password'), errors)
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const route = useRouter();
+    const [isShowPassword, setShowPassword] = useState(false);
+
 
     const handleRegister = async (userData) => {
 
         const { name, image, email, password } = userData;
-        
-
         const { data, error } = await authClient.signUp.email({
             name: name,
             email: email,
@@ -31,7 +31,7 @@ const RegisterPage = () => {
         if (data) {
             alert('signUp successfully')
         }
-        if(error){
+        if (error) {
             alert(error.message)
         }
 
@@ -49,7 +49,7 @@ const RegisterPage = () => {
                 <h2 className="text-2xl md:text-3xl font-semibold text-center">Register your account</h2>
 
                 <form onSubmit={handleSubmit(handleRegister)}>
-                    <fieldset className="fieldset  border-base-300 p-4 rounded-box sm:w-sm border">
+                    <fieldset className="fieldset  border-base-300 p-4 rounded-box sm:w-sm border relative">
 
                         <label className="label font-semibold text-base">Your Name</label>
                         <input type="text" className="input w-full bg-zinc-100" placeholder="Enter Your Name"
@@ -86,7 +86,7 @@ const RegisterPage = () => {
 
                         <label className="label font-semibold text-base">Password</label>
                         <input
-                            type="password"
+                            type={isShowPassword ? 'text': "password"}
                             className="input w-full bg-zinc-100" placeholder="Enter Your Password"
                             {...register('password', {
                                 required: 'This field is required',
@@ -95,6 +95,12 @@ const RegisterPage = () => {
                                     message: "Password must be at least 6 characters or longer"
                                 }
                             })} />
+                        <span className="absolute bottom-[26%] right-6"
+                            onClick={() => {
+                                setShowPassword(!isShowPassword)
+                            }}>
+                            {isShowPassword ? <FaEye className="text-base" /> : <FaEyeSlash className="text-base" />}
+                        </span>
                         {errors.password &&
                             <p className="text-red-500">{errors.password.message}</p>}
 

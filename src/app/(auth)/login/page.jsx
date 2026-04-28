@@ -1,14 +1,15 @@
 "use client"
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const LoginPage = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    // console.log('use form', useForm());
-    // console.log('register', register('password'), errors)
+    const { register, handleSubmit, formState: { errors } } = useForm();
+      const [isShowPassword, setShowPassword] = useState(false);
 
 
     const handleLogin =async (userData) => {
@@ -34,7 +35,7 @@ const LoginPage = () => {
                 <h2 className="text-2xl md:text-3xl font-semibold text-center">Login your account</h2>
 
                 <form onSubmit={handleSubmit(handleLogin)}>
-                    <fieldset className="fieldset  border-base-300 p-4 md:p-6 rounded-box sm:w-sm border">
+                    <fieldset className="fieldset  border-base-300 p-4 md:p-6 rounded-box sm:w-sm border relative">
                         <label className="label font-semibold text-base">Email</label>
                         <input  type="email" className="input w-full bg-zinc-100" placeholder="Email"
                             {...register('email', {
@@ -44,13 +45,15 @@ const LoginPage = () => {
                                     message: "Invalid email format"
                                 }
                             })} />
+                          
                         {errors.email &&
                             <p className="text-red-500">{errors.email.message}</p>}
 
+
                         <label className="label font-semibold text-base">Password</label>
                         <input
-                            type="password"
-                            className="input w-full bg-zinc-100" placeholder="Password"
+                            type={isShowPassword ? 'text' : 'password'}
+                            className="input w-full bg-zinc-100 " placeholder="Password"
                             {...register('password', {
                                 required: 'This field is required',
                                 minLength: {
@@ -58,6 +61,12 @@ const LoginPage = () => {
                                     message: "Password must be at least 6 characters or longer"
                                 }
                             })} />
+                            <span className="absolute top-[48%] right-8"
+                             onClick={()=>{
+                                setShowPassword(!isShowPassword)
+                            }}>
+                                {isShowPassword ? <FaEye className="text-base"/> : <FaEyeSlash className="text-base"/>}
+                            </span>
                         {errors.password &&
                             <p className="text-red-500">{errors.password.message}</p>}
 
