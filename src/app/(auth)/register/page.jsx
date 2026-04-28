@@ -1,17 +1,43 @@
 "use client"
-import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 
 const RegisterPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    console.log('use form', useForm());
-    console.log('register', register('password'), errors)
+    // console.log('use form', useForm());
+    // console.log('register', register('password'), errors)
+    const route = useRouter();
+
+    const handleRegister = async (userData) => {
+
+        const { name, image, email, password } = userData;
+        
+
+        const { data, error } = await authClient.signUp.email({
+            name: name,
+            email: email,
+            image: image,
+            password: password
+
+        }, {
+            onSuccess: () => {
+                route.push('/')
+            }
+        });
+
+        if (data) {
+            alert('signUp successfully')
+        }
+        if(error){
+            alert(error.message)
+        }
 
 
-    const handleLogin = (data) => {
-        console.log(data)
+        console.log('singUp', data, error)
+        console.log(userData)
     }
 
 
@@ -19,14 +45,14 @@ const RegisterPage = () => {
     return (
         <section className="container mx-auto px-5 md:px-8 lg:px-12 py-6 rounded-sm bg-zinc-200 min-h-[80vh] flex justify-center items-center">
 
-            <div className="bg-base-100 p-5 md:p-6 space-y-4 md:space-y-6 rounded-sm w-full sm:w-auto">
+            <div className="bg-base-100 p-5 space-y-4 md:space-y-6 rounded-sm w-full sm:w-auto">
                 <h2 className="text-2xl md:text-3xl font-semibold text-center">Register your account</h2>
 
-                <form onSubmit={handleSubmit(handleLogin)}>
-                    <fieldset className="fieldset  border-base-300 p-4 md:p-6 rounded-box sm:w-sm border">
+                <form onSubmit={handleSubmit(handleRegister)}>
+                    <fieldset className="fieldset  border-base-300 p-4 rounded-box sm:w-sm border">
 
                         <label className="label font-semibold text-base">Your Name</label>
-                        <input  type="text" className="input w-full bg-zinc-100" placeholder="Enter Your Name"
+                        <input type="text" className="input w-full bg-zinc-100" placeholder="Enter Your Name"
                             {...register('name', {
                                 required: 'This field is required',
                                 minLength: {
@@ -39,14 +65,14 @@ const RegisterPage = () => {
 
 
                         <label className="label font-semibold text-base">Photo URL </label>
-                        <input  type="text" className="input w-full bg-zinc-100" placeholder="Enter Your Photo URL"
+                        <input type="text" className="input w-full bg-zinc-100" placeholder="Enter Your Photo URL"
                             {...register('photo', {
                                 required: 'This field is required',
                             })} />
                         {errors.photo &&
                             <p className="text-red-500">{errors.photo.message}</p>}
                         <label className="label font-semibold text-base">Email</label>
-                        <input  type="email" className="input w-full bg-zinc-100" placeholder="Enter Your Email"
+                        <input type="email" className="input w-full bg-zinc-100" placeholder="Enter Your Email"
                             {...register('email', {
                                 required: 'This field is required',
                                 pattern: {
