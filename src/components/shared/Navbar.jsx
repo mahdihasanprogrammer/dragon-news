@@ -26,7 +26,7 @@ const Navbar = () => {
       }
     })
   }
-  console.log('this is auth',authClient.useSession(), )
+
 
 
 
@@ -47,7 +47,7 @@ const Navbar = () => {
         </li>
       </ul>
 
-      {isPending ? <p>loading...</p>
+      {isPending ? <span className="loading loading-spinner text-primary"></span>
       : user ? 
         <div className='flex items-center justify-between gap-4'>
           <p>{user?.name}</p>
