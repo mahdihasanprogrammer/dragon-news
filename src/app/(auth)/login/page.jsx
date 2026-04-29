@@ -21,9 +21,15 @@ const LoginPage = () => {
             rememberMe:true,
             callbackURL:'/'
         })
-
+        
+        if(error){
+            alert(error.message)
+        }
+        if(data){
+            alert('sign in successfully')
+        }
         console.log(userData)
-        console.log('signiN', data, error)
+        console.log('signin', data, error)
     }
 
 
